@@ -1,0 +1,4 @@
+﻿  Main.c
+c:\users\dankor1498\desktop\projectc\projectc\main.c(41): warning C4013: 'pushBack' undefined; assuming extern returning int
+c:\users\dankor1498\desktop\projectc\projectc\main.c(58): warning C4133: '=': incompatible types - from 'Node *' to 'Product *'
+  ProjectC.vcxproj -> C:\Users\DanKor1498\Desktop\ProjectC\Debug\ProjectC.exe
