@@ -6,11 +6,6 @@ int main(void)
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 
-	/*int m1[5] = { 0,  1, -1, -1, -1 }; //для тестів без введення
-	int m2[5] = { 2,  3, -1, -1, -1 };
-	int m3[5] = { 4, -1, -1, -1, -1 };
-	int m[5] = { 1, 0, -1, -1, -1 };*/
-
 	printf("-------------------МАГАЗИН МОЛОЧАР-------------------\n");
 	Node* head = NULL;
 
@@ -19,23 +14,24 @@ int main(void)
 		printf("1 - створити новий список продуктів, 0 - завершити: ");
 		scanf_s("%d", &i);
 		if (i == 1) {
-			Product p = input();
-			head = initList(p.name, p.unit, p.k, p.pricePerOne);
-
-			/*Product p;
-			head = initList("Сир Особливий", m, 930, 3.44); //для тестів без введення
-			pushBack(head, "Сир", m1, 53, 45.54);
-			pushBack(head, "Молоко", m2, 1200, 20.45);
-			pushBack(head, "Сирний батончик", m3, 16, 5.94);
-			pushBack(head, "Молоко селянське", m2, 100, 10.74);
-			pushBack(head, "Сирний батончик шоколадний", m3, 45, 32.5);
-			pushBack(head, "Сир голандський", m3, 19, 51.94);
-			pushBack(head, "Масло", m1, 35, 90.77);*/
+			int c;
+			printf("1 - створити з файлу, 0 - створити з консолі: ");
+			scanf_s("%d", &c);
+			Product p;
+			if (c == 1) {				
+				inputFile(&head);
+			}
+			else {
+				p = input();
+				head = initList(p.name, p.unit, p.k, p.pricePerOne);
+			}
 
 			while (1) {
-				int i;
-				printf("Додати елемент? 1 - так, 0 - ні: ");
-				scanf_s("%d", &i);
+				int i = 0;				
+				if (c != 1) {
+					printf("Додати елемент? 1 - так, 0 - ні: ");
+					scanf_s("%d", &i);
+				}					
 				if (i == 1) {
 					p = input();
 					pushBack(head, p.name, p.unit, p.k, p.pricePerOne);
@@ -97,6 +93,7 @@ int main(void)
 						if (i == 6) {
 							printf("\n");
 							printLinkedList(head);
+							printFile(head);
 							continue;
 						}
 						if (i == 7) {

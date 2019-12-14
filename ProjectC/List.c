@@ -3,6 +3,55 @@
 char *Units[5] = { "кг", "г", "л", "мл", "шт" };
 enum typeUnit { kg, g, l, ml, p };
 
+void inputFile(Node** head) {
+	char *filename = "Input.txt";
+	FILE *fp = NULL;
+	char cc[256];
+	Product pr;
+	if (fopen_s(&fp, filename, "r"))
+	{
+		perror("Помилка відкриття файлу\n");
+		return;
+	}
+	fgets(cc, 256, fp);
+	int s = strlen(cc);
+	cc[s - 1] = '\0';
+	strcpy_s(pr.name, 50, cc);
+	for (int i = 0; i < 5; i++)
+	{
+		fgets(cc, 256, fp);
+		int k = atoi(cc);
+		pr.unit[i] = k;
+	}
+	fgets(cc, 256, fp);
+	int k = atoi(cc);
+	pr.k = k;
+	fgets(cc, 256, fp);
+	char *ptr;
+	pr.pricePerOne = strtod(cc, &ptr);
+	*head = initList(pr.name, pr.unit, pr.k, pr.pricePerOne);
+
+	while ((fgets(cc, 256, fp)) != NULL)
+	{
+		int s = strlen(cc);
+		cc[s - 1] = '\0';
+		strcpy_s(pr.name, 50, cc);
+		for (int i = 0; i < 5; i++)
+		{
+			fgets(cc, 256, fp);
+			int k = atoi(cc);
+			pr.unit[i] = k;
+		}
+		fgets(cc, 256, fp);
+		int k = atoi(cc);
+		pr.k = k;
+		fgets(cc, 256, fp);
+		char *ptr;
+		pr.pricePerOne = strtod(cc, &ptr);
+		pushBack(*head, pr.name, pr.unit, pr.k, pr.pricePerOne);
+	}
+}
+
 Product input() {
 	Product product;
 	printf("\nВведіть назву товару: ");
@@ -158,6 +207,39 @@ void printLinkedList(const Node *head) {
 		head = head->next;
 	}
 	printf("\n");
+}
+
+void printFile(const Node *head) {
+	FILE *fp;
+	if (fopen_s(&fp, "Output.txt", "w"))
+	{
+		perror("Помилка відкриття файлу\n");
+		return;
+	}
+	int c = 0;
+	while (head) {
+		fprintf_s(fp, "№%d ", 1 + c++);
+		printProductFile(head, fp);
+		head = head->next;
+	}
+	fprintf_s(fp, "\n");
+}
+
+void printProductFile(const Product *p, FILE *fp) {
+	fprintf_s(fp, "Товар \"%s\", %d %s, ціна за одиницю - %.2f грн., ", p->name, p->k, Units[p->unit[0]], p->pricePerOne);
+	fprintf_s(fp, "додаткові одиниці виміру(");
+	for (int i = 1; i < 5; i++) {
+		if ((p->unit[i + 1] == -1 && p->unit[i] != -1) || i == 4) {
+			fprintf_s(fp, "%s", Units[p->unit[i]]);
+			break;
+		}
+		if (p->unit[i] != -1) {
+			fprintf_s(fp, "%s, ", Units[p->unit[i]]);
+		}
+		else
+			break;
+	}
+	fprintf_s(fp, ")\n");
 }
 
 void printProduct(const Product *p) {

@@ -19,6 +19,7 @@ typedef struct Node {
 	struct Node *next;
 } Node;
 
+void inputFile(Node** head);
 Product input(); //Введення продукту з консолі
 Node* initList(char *n, int *un, int kk, double price); //ініціалізація списку
 Product deleteItem(Node **head);//видалення останнього елементу
@@ -27,9 +28,12 @@ void addIndex(Node *head, unsigned n, Product val); // вставка елемента по індек
 Product deleteNth(Node **head, int n); //видалення елемента по індексу
 void deleteList(Node **head); //видалення списку товарів
 void printLinkedList(const Node *head); //друкування списку товарів
+void printFile(const Node *head); //друкування списку товарів
+void printProductFile(const Product *p, FILE *fp);
 void printProduct(const Product *p); //друкування окремого товару
 double commonPrice(const Node *head); //загальна вартість товарів
 void changeAmount(Node** head, int ck, int number); //зміна кількості товару за номером
 void changePrice(Node** head, double ck, int number); //зміна кількості ціни за номером
 void searchName(Node* head, char *Name); //пошук продукта по назві
+void pushBack(Node *head, char *n, int *un, int kk, double price);
 
