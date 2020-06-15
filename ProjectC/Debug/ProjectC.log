@@ -1,3 +1,0 @@
-﻿  Main.c
-d:\documents\предмети\програмування\проги робота\projectcкурсач\projectc\main.c(54): warning C4133: '=': incompatible types - from 'Node *' to 'Product *'
-  ProjectC.vcxproj -> D:\Documents\Предмети\Програмування\Проги робота\ProjectCКурсач\Debug\ProjectC.exe
